@@ -1,7 +1,4 @@
-@import "@fontsource/work-sans";
-div{
-    font-size: 'Work Sans';
-}
+
 .product-content{
     display: flex;
     flex-direction: row;
@@ -27,7 +24,6 @@ div{
     flex: 1;
     padding: 20px;
     max-height: 100vh;   /* never exceed viewport */
-
     overflow-y: auto;
     scrollbar-width: none;  /* Firefox */
     -ms-overflow-style: none;

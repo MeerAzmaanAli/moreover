@@ -1,4 +1,4 @@
-@import "@fontsource/work-sans";
+
 
 header {
   display: flex;
@@ -7,7 +7,6 @@ header {
   padding: 4px 16px;
   background-color: #ffffff;
   border-bottom: 1px solid #eee;
-  font-family: "Work Sans";
 }
 
 .header_left {

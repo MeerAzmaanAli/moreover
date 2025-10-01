@@ -98,7 +98,7 @@
   padding: 6px 10px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: #ccc;
+  background: #fff;
   cursor: pointer;
   font-size: 0.85rem;
 }

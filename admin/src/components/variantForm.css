@@ -27,7 +27,7 @@
   box-shadow: var(--shadow);
   border: 1px solid var(--border);
   box-sizing: border-box;
-    overflow-y: auto;
+    overflow-y: auto; 
 }
 
 

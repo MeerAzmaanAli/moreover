@@ -1,5 +1,5 @@
 // src/services/productService.js
-const API_BASE = "https://moreover-backend.vercel.app/api/products";
+const API_BASE = "https://moreover-backend.onrender.com/api/products";
 
 // Get all products
 export const getAllProducts = async () => {

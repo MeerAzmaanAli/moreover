@@ -16,9 +16,9 @@ const UserProfilePage = () => {
     const [edit, setEdit] = useState(false);
     const [form, setForm] = useState({  
         _id: userId,
-        fullName: user && user.fullName,
-        phone: user && user.phone,
-        addresses: user && user.addresses
+        fullName: user && user?.fullName,
+        phone: user && user?.phone,
+        addresses: user && user?.addresses
     });
 
 
@@ -28,7 +28,7 @@ const UserProfilePage = () => {
             const userData = await getUserProfile(userId);
             console.log(userData);
             setUser(userData);
-            setAddresses(userData.addresses);
+            setAddresses(userData?.addresses);
             setForm({ ...form, fullName: userData?.fullName || "", phone: userData?.phone || "", addresses: userData?.addresses || [] });
         };
 
@@ -97,13 +97,13 @@ const UserProfilePage = () => {
                         <img src={editIcon} alt="Edit Profile" onClick={() => setEdit(!edit)} />
                     </div>
                     {!edit && user && (
-                        <div key={user._id} className="user_details">
-                            <p className="info"><strong> Name:</strong> {user.fullName}</p>
-                            <p className="info"><strong> Email:</strong> {user.email}</p>
+                        <div key={user?._id} className="user_details">
+                            <p className="info"><strong> Name:</strong> {user?.fullName}</p>
+                            <p className="info"><strong> Email:</strong> {user?.email}</p>
                             <div>
                                 <h3 className="info"> Addresses:</h3>
-                                {user.addresses && user.addresses.length > 0 ? (
-                                    user.addresses.map((addr, index) => (
+                                {user?.addresses && user?.addresses.length > 0 ? (
+                                    user?.addresses.map((addr, index) => (
                                     <div key={index} style={{ marginBottom: "10px" }}>
                                         <p className="info" ><strong>{addr.label || `Address ${index + 1}`}:</strong></p>
                                         <p>- {addr.street}, {addr.city}, {addr.state}, {addr.country} - {addr.zipCode}</p>
@@ -114,7 +114,7 @@ const UserProfilePage = () => {
                                     <p>No addresses saved.</p>
                                 )}
                                 </div>
-                            <p className="info"> <strong> Phone:</strong> {user.phone}</p>
+                            <p className="info"> <strong> Phone:</strong> {user?.phone}</p>
                         </div>
                         
                     )}
@@ -179,9 +179,9 @@ const UserProfilePage = () => {
                 <div className="order_history">
                     <h3>Order History</h3>
                     {orders && orders.map(order => (
-                        <div className="order_item" key={order._id}>
-                            <p className="info">Order #{order._id}</p>
-                            <p className="info">{order.totalAmount} rs | <strong>{order.status}</strong></p>
+                        <div className="order_item" key={order?._id}>
+                            <p className="info">Order #{order?._id}</p>
+                            <p className="info">{order?.totalAmount} rs | <strong>{order?.status}</strong></p>
                         </div>
                     ))}
                 </div>

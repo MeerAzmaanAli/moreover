@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'unica';
+  src: url('../public/UnicaOne-Regular.ttf') format('truetype');
+}
+div{
+    font-family: 'unica';
+}
