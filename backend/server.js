@@ -7,7 +7,10 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://moreover-oiep.onrender.com",
+  credentials: true
+}));
 app.use(express.json());
 
 const PORT = process.env.PORT || 4000;
