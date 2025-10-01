@@ -28,6 +28,7 @@
     scrollbar-width: none;  /* Firefox */
     -ms-overflow-style: none;
     transition: flex 0.35s ease; /* smooth size change */
+    border-right: 1px solid #eee;
     img{
         width: 100%;
         border-radius: 10px;
