@@ -8,7 +8,16 @@ import { getUserOrders } from "../utils/userServices";
 import { useNavigate } from "react-router-dom";
 
 const UserProfilePage = () => {
-    const userId = JSON.parse(localStorage.getItem("userId"));
+    const [userId,setUserId] = useState("");
+    useEffect(() => {
+        const storedUserId = localStorage.getItem("userId");
+        if (storedUserId) {
+            setUserId(storedUserId);
+        }else{
+            setUserId("");
+            navigate('/login');
+        }
+    }, []);
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
     const [orders, setOrders] = useState([]);   
