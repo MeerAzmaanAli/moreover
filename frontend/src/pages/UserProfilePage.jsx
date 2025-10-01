@@ -14,6 +14,7 @@ const UserProfilePage = () => {
         const storedUserId = localStorage.getItem("userId");
         if (storedUserId) {
             setUserId(storedUserId);
+            console.log("User ID found:", storedUserId);
         }else{
             setUserId("");
             navigate('/login');
