@@ -1,0 +1,114 @@
+.profile_content{
+    display: flex;
+    flex-direction: row;
+}
+.profile-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-right: 20px;
+    img{
+        width: 25px;
+        height: 25px;    
+        cursor: pointer;
+    }
+
+}
+.user_details{
+    display: flex;
+    flex-direction: column;
+
+
+}
+.personal_info{
+    flex:1;
+    margin-left: 50px;
+    border-right: 1px solid #ccc;
+}
+.order_history{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
+.order_item{
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    &:hover{
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+}
+.info{
+    border-left: 3px solid #242424;
+    padding-left: 5px;
+}
+.edit_form{
+    margin-top: 20px;
+    form{
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        input, select{
+            margin-bottom: 10px;
+            max-width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .addresses_form{
+            margin-top: 20px;
+            .address_block{
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 10px;
+                margin-bottom: 10px;
+                max-width: 100%;
+                .address_label{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    h4{
+                        margin: 0;
+                    }
+                    img{
+                        width: 20px;
+                        height: 20px;    
+                        cursor: pointer;
+                    }
+                }
+                input{
+                    margin-bottom: 5px;
+                    max-width: 90%;
+                }
+            }
+        }
+        .save_button{
+            background-color: #242424;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            &:hover{
+                background-color: #444;
+            }
+        }
+    }
+}
+@media screen and (max-width: 768px) {
+ .profile_content{
+    flex-direction: column;
+ }
+ .personal_info{
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+}
+}
+    

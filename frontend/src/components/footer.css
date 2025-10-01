@@ -1,0 +1,40 @@
+@import "@fontsource/work-sans";
+footer{
+  font-family: "Work Sans";
+  color: rgb(145, 144, 144);
+  font-size: 16px;
+  border-top: 1px solid #ccc;
+}
+.services-about {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-left: 50px;
+  margin-right: 50px;
+  a{
+    text-decoration: none;
+    color: rgb(145, 144, 144);
+    
+  }
+
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+
+}
+
+.socials img {
+  margin: 0 1rem;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+}
+
+.copyright {
+  text-align: center;
+  padding: 1rem;
+}

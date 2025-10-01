@@ -1,0 +1,106 @@
+
+.prs-container {
+  width: 100%;        /* fill parent */
+  max-width: 100%;    /* remove rigid max-width */
+  margin: 8px 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+/* show values row */
+.prs-values {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  color: #111;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* slider wrapper keeps relative sizing */
+.prs-slider {
+  position: relative;
+  height: 3.6rem;                /* vertical space for thumbs; scales with parent font-size */
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+/* the colored range track that sits under the inputs */
+.prs-range {
+  position: absolute;
+  height: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  border-radius: 6px;
+  background: #ddd;
+  pointer-events: none;
+}
+
+/* make both range inputs full width */
+input[type="range"] {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* responsive thumb size using clamp */
+:root {
+  --thumb-size: clamp(12px, 1.8vw, 18px);
+  --thumb-border: 2px;
+  --thumb-color: #030303;
+}
+
+/* webkit thumb */
+input[type="range"]::-webkit-slider-thumb {
+  pointer-events: auto;
+  -webkit-appearance: none;
+  height: var(--thumb-size);
+  width: var(--thumb-size);
+  border-radius: 50%;
+  background: #fff;
+  border: var(--thumb-border) solid var(--thumb-color);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* firefox thumb */
+input[type="range"]::-moz-range-thumb {
+  pointer-events: auto;
+  height: var(--thumb-size);
+  width: var(--thumb-size);
+  border-radius: 50%;
+  background: #fff;
+  border: var(--thumb-border) solid var(--thumb-color);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.no-select, .no-select * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -ms-user-select: none !important;
+  -moz-user-select: none !important;
+  touch-action: none; /* helps on touch devices */
+}
+
+
+/* keep pointer-events only on thumbs */
+.thumb { pointer-events: none; }
+.thumb--left, .thumb--right { pointer-events: auto; }
+
+/* optional small responsiveness for mobile */
+@media (max-width: 420px) {
+  .prs-values { font-size: 0.85rem; }
+  .prs-slider { height: 3rem; }
+}

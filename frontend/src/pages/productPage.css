@@ -1,0 +1,156 @@
+@import "@fontsource/work-sans";
+div{
+    font-size: 'Work Sans';
+}
+.product-content{
+    display: flex;
+    flex-direction: row;
+    /*position: relative; /* needed for toggle positioning */
+}
+.split-toggle {
+ display: none;  /* default hidden (desktop) */
+  /*position: absolute;*/
+  margin-top: 80%;
+  margin-left: -20px;
+  margin-right: -10px;
+  transform: translateY(-50%);
+  z-index: 50;
+
+  width: 1px;
+  height: 500px;
+  font-size: 20px;
+  background:none;
+  color: #5f5f5f;
+  cursor: pointer;
+}
+.left-container{
+    flex: 1;
+    padding: 20px;
+    max-height: 100vh;   /* never exceed viewport */
+
+    overflow-y: auto;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    transition: flex 0.35s ease; /* smooth size change */
+    img{
+        width: 100%;
+        border-radius: 10px;
+    }
+}
+.right-container{
+    flex: 1;
+    padding: 20px;
+    max-height: 100vh;   /* never exceed viewport */
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    p{
+        color: grey;
+    }
+}
+.size-options{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 50px;
+    margin-top: 10px;
+}
+.size{
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+}
+.size:hover{
+    background-color: #f0f0f0;
+}
+.color-options{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-top: 10px;
+    
+}
+.color{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.button-container{
+    display: flex;
+    margin: 20px;
+    gap: 10px;
+}
+button{
+    padding: 10px 20px;
+    color: rgb(46, 46, 46);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 20px;
+    font-size: large;
+}
+.add-to-cart{
+    background-color: lavender;
+    color: rgb(34, 0, 34);
+}
+.buy-now{
+    background-color: rgb(24, 24, 24);
+    color: plum;
+}
+.additional-info{
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #ccc;
+}
+.left{
+    flex: 1;
+    padding: 20px;
+    flex-wrap: wrap;
+    border-right: 1px solid #eee;
+}
+.right{
+    flex: 1;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+.reviews{
+    max-height: 250px;   /* never exceed viewport */
+    overflow-y: auto;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+}
+@media (max-width: 768px) {
+  .split-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* make room for the button so images/content don't sit under it */
+  .left-container {
+    padding-right: 44px; /* original padding(20) + half button + gap; tweak if needed */
+  }
+
+  .right-container {
+    transition: flex 0.35s ease;
+  }
+  .size-options{
+    gap: 20px;
+
+}
+    button{
+        
+    font-size: medium;
+    }
+}

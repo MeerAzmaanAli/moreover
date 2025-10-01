@@ -1,0 +1,94 @@
+.login-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-left: 20px ;
+    padding-right: 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #eee;
+    font-family: "Work Sans";
+    height: 30px;
+}
+
+.header_left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    
+    margin-right: 20px;
+    a{
+        text-decoration: none;
+        color: black;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+.navs a {
+    margin-right: 30px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    &:hover {
+        color: #000000;
+    }
+}
+
+.header_right {
+    display: flex;
+    align-items: center;
+}
+.login-container{
+    justify-self: center;
+    max-width: 75%;
+    justify-content: center;
+}
+.login-signup{
+    display: flex;
+    flex-direction: row;
+    gap: 65vw;
+    border-bottom: 1px solid #eee;
+    color: #333;
+
+}
+.forms{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+.login-form form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+.signup-form form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+}
+input{
+    margin: 10px;
+    padding: 10px;
+    width: 200%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.submit{
+    background-color: #e6a5ff;
+    color: rgb(22, 22, 22);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #df67f7;
+    }
+}

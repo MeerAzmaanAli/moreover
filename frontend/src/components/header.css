@@ -1,0 +1,187 @@
+@import "@fontsource/work-sans";
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 16px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eee;
+  font-family: "Work Sans";
+}
+
+.header_left {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.logo a {
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.navs {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navs a {
+  text-decoration: none;
+  align-items: center;
+  color: #333;
+  font-size: 14px;
+}
+
+.navs a:hover {
+  color: #000000;
+}
+
+/* RIGHT SIDE */
+.header_right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* SEARCH BAR */
+.search_bar {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #eee;
+  height: 32px; /* slimmer bar */
+  width: 200px;
+  max-width: 280px; /* limit size if needed */
+}
+
+.search_bar input {
+             /* take up remaining space */
+  padding: 0 8px;
+  border: none;
+  background: transparent;
+  height: 100%;
+  width: 70%;         /* majority of space */
+  font-size: 13px;
+  outline: none;        /* remove blue outline */
+}
+
+.search_button {
+  border: none;
+  background: #eee;
+  border-left: 1px solid #ccc;
+  width: 40px;          /* fixed size */
+  height: 100%;         /* match input */
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* USER/ICONS */
+.user_profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user_profile img {
+  width: 40px;
+  height: 40px;
+}
+
+.cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 1000; } 
+.cart-drawer { 
+  position: fixed; top: 0; right: 0; 
+  width: 340px; 
+  max-width: 90vw; 
+  height: 100vh; 
+  background: #fff; 
+  box-shadow: -2px 0 16px rgba(0,0,0,0.12); 
+  z-index: 1001; 
+  padding: 24px 20px 20px 20px; 
+  display: flex; 
+  flex-direction: column; 
+  animation: slideInCart .25s cubic-bezier(.4,0,.2,1); } 
+
+  @keyframes slideInCart { from { transform: translateX(100%); } to { transform: translateX(0); } } 
+  
+  .close-btn { background: none; border: none; font-size: 2rem; position: absolute; 
+    top: 12px; right: 18px; cursor: pointer; color: #333; } 
+  
+  .cart-content{ display: flex; padding: 10px; border-radius: 5px; 
+    flex-direction: column; max-height: 100vh; /* never exceed viewport */ overflow-y: auto; 
+    scrollbar-width: none; /* Firefox */ -ms-overflow-style: none; } 
+  
+  .cart-item{ display: flex; max-width: 100%; flex-direction: row; 
+    align-items: center; padding: 10px; gap: 50px; cursor: pointer; 
+    img{ width: 40px; border-radius: 5px; } &:hover{ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    cursor: pointer; } } .cart-item-details{ flex-grow: 1; display: flex; 
+    flex-direction: row; align-items: center; gap: 20px; 
+    div{ line-height: 0.9; p{ font-size: small; } } } 
+    
+  .remove-btn{ background: none; border: none; color: #999; 
+    cursor: pointer; font-size: 1rem; padding: 0; margin-left: auto; 
+    transition: color .2s; &:hover { color: #333; } } 
+    
+    
+  .cart-footer{ display: flex; justify-content: space-between; 
+    align-items: center; margin-top: auto; padding: 12px 0; 
+    border-top: 1px solid #eee; button{ background: #333; 
+    color: #fff; border: none; padding: 10px 15px; border-radius: 4px; 
+    cursor: pointer; transition: background .2s; 
+    &:hover { background: darken(#333, 5%); } } }
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .navs a {
+    margin-right: 16px;
+    font-size: 13px;
+  }
+
+  .search_bar {
+    max-width: 220px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .header_left {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .navs {
+    display: none; /* hide nav links on mobile */
+  }
+
+  .search_bar {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .header_right {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .cart-drawer {
+    width: 100vw;
+  }
+}
+
+/* You can later add a .hamburger to toggle navs on mobile */

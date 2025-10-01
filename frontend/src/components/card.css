@@ -1,0 +1,36 @@
+:root{
+    --width:250px;
+}
+.card {
+    border-radius: 4px;
+    padding: 16px;
+    transition: box-shadow 0.3s;
+    width:  var(--width);
+    height: auto;
+    &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    }
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card img {
+    width: var(--width);
+    border-radius: 4px;
+    justify-self: center;
+}
+
+.card h3 {
+    font-size: 18px;
+    margin: 12px 0 8px;
+    text-overflow: hidden;
+}
+
+.card p {
+    font-size: 16px;
+    color: #666;
+}

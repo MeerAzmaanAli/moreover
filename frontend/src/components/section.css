@@ -1,0 +1,48 @@
+@import "@fontsource/work-sans";
+
+.section {
+  margin: 20px;
+  font-family: 'Work Sans';
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.section-head a {
+  text-decoration: none;
+  color: gray;
+  font-size: 14px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* PRODUCT GRID */
+.section-product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly; /* evenly distribute */
+  gap: 40px; /* space between cards */
+}
+
+
+
+
+@media (max-width: 600px) {
+  .section {
+    margin: 12px;
+  }
+
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+}

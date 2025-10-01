@@ -1,0 +1,168 @@
+/* VariantForm.css
+   Matches style with ProductForm.css
+*/
+
+:root {
+  --bg: #ffffff;
+  --card: #f8f9fb;
+  --muted: #6b7280;
+  --border: #e6e9ee;
+  --accent: #5b6cff;
+  --danger: #ef4444;
+  --radius: 8px;
+  --gap: 12px;
+  --max-width: 720px;
+  --pad: 20px;
+  --shadow: 0 6px 18px rgba(22, 28, 45, 0.06);
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Container */
+.variant-form {
+  max-width: var(--max-width);
+  margin: 28px auto;
+  background: var(--bg);
+  border-radius: 12px;
+  padding: var(--pad);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  box-sizing: border-box;
+    overflow-y: auto;
+}
+
+
+/* Headings */
+.variant-form h2 {
+  margin: 0 0 14px 0;
+  font-size: 1.3rem;
+  color: #111827;
+}
+
+.variant-form h3 {
+  margin: 18px 0 8px 0;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+/* Labels & inputs */
+.variant-form label {
+  display: block;
+  margin: 10px 0 6px 0;
+  font-size: 0.92rem;
+  color: #111827;
+}
+
+.variant-form input[type="text"],
+.variant-form input[type="number"],
+.variant-form textarea,
+.variant-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: #fff;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  color: #0f172a;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.variant-form input:focus,
+.variant-form textarea:focus,
+.variant-form select:focus {
+  outline: none;
+  border-color: rgba(91, 108, 255, 0.9);
+  box-shadow: 0 4px 14px rgba(91, 108, 255, 0.06);
+}
+
+/* Array items (sizes, images) */
+.array-item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.array-item input {
+  flex: 1 1 auto;
+}
+
+.array-item button {
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.array-item button:hover {
+  background: #f1f5f9;
+}
+
+/* Attributes */
+.attr-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.attr-pair input {
+  padding: 8px 10px;
+}
+
+.attr-pair button {
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: transparent;
+  color: var(--danger);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.attr-pair button:hover {
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* Buttons */
+.variant-form button[type="button"] {
+  margin: 6px 0;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #0f172a;
+  transition: transform 0.06s ease;
+}
+
+.variant-form button[type="button"]:hover {
+  transform: translateY(-1px);
+}
+
+/* Submit button */
+.variant-form button[type="submit"] {
+  background: linear-gradient(90deg, var(--accent), #3f4cff);
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 16px;
+}
+
+.variant-form button[type="submit"]:hover {
+  filter: brightness(0.98);
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .attr-pair {
+    grid-template-columns: 1fr;
+  }
+}
