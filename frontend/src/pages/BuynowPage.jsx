@@ -1,10 +1,5 @@
 import "./buynowPage.css"
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
-// import local images from src/assets
-import linenImg from "../media/linen-shirt.png";
-import oversizedImg from "../media/oversized-tee.png";
-import poloImg from "../media/polo-tee.png";
-import hero from "../media/hero.png";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";

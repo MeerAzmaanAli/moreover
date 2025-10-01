@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const UserProfilePage = () => {
     const [userId,setUserId] = useState("");
     useEffect(() => {
+        console.log("Fetching user ID from localStorage");
         const storedUserId = localStorage.getItem("userId");
         if (storedUserId) {
             setUserId(storedUserId);
