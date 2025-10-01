@@ -43,42 +43,39 @@
     align-items: center;
 }
 .login-container{
-    justify-self: center;
-    max-width: 75%;
     justify-content: center;
+    align-items: center;
+    max-width: 100%;
 }
 .login-signup{
     display: flex;
     flex-direction: row;
-    gap: 65vw;
     border-bottom: 1px solid #eee;
     color: #333;
 
 }
 .forms{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
 
 }
 .login-form form{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+
 
 }
 .signup-form form{
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-
 }
 input{
     margin: 10px;
     padding: 10px;
-    width: 200%;
     border-radius: 5px;
     border: 1px solid #ccc;
+    max-width: 300px;
 }
 .submit{
     background-color: #e6a5ff;
@@ -87,6 +84,8 @@ input{
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    max-width: 100px;
+    margin-left: 10px;
 
     &:hover {
         background-color: #df67f7;

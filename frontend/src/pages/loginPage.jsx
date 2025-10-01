@@ -23,7 +23,7 @@ const LoginPage = () => {
         console.log(loggedInUser);
         setUser(loggedInUser);
         localStorage.setItem("authToken", loggedInUser.token);
-        localStorage.setItem("userId", JSON.stringify(loggedInUser.user.id));
+        localStorage.setItem("userId", JSON.stringify(loggedInUser.user?.id));
         navigate("/");
     };
 
@@ -66,12 +66,12 @@ const LoginPage = () => {
                 </div>
             </div>
             <div className="login-container">
-                <div className="login-signup">
-                    <h4>Login</h4>
-                    <h4>SignUp</h4>
-                </div>
                 <div className="forms">
                     <div className="login-form">
+                        <div>
+                            <h4>Login</h4>
+                        </div>
+                        
                         <form>
                             <input type="text" onChange={e => setEmail(e.target.value)} placeholder="Email" />
                             <input type="password" onChange={e => setPassword(e.target.value)} placeholder="Password" />
@@ -79,6 +79,10 @@ const LoginPage = () => {
                         </form>
                     </div>
                     <div className="signup-form">
+                        <div>
+                            <h4>SignUp</h4>
+                        </div>
+                        
                         <form>
                             <input type="text" placeholder="Full Name" onChange={handleChange} name="fullName" value={form.fullName}/>
                             <input type="text" placeholder="Email" onChange={handleChange} name="email" value={form.email}/>

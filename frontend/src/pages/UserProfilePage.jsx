@@ -8,7 +8,9 @@ import { getUserOrders } from "../utils/userServices";
 import { useNavigate } from "react-router-dom";
 
 const UserProfilePage = () => {
-    const [userId,setUserId] = useState("");
+    const navigate = useNavigate();
+    const userId = JSON.parse(localStorage.getItem("userId"));
+    /*const [userId,setUserId] = useState("");
     useEffect(() => {
         console.log("Fetching user ID from localStorage");
         const storedUserId = localStorage.getItem("userId");
@@ -17,11 +19,11 @@ const UserProfilePage = () => {
             console.log("User ID found:", storedUserId);
         }else{
             setUserId("");
-            navigate('/login');
+            //navigate('/login');
         }
-    }, []);
+    }, []);*/
+
     const [user, setUser] = useState(null);
-    const navigate = useNavigate();
     const [orders, setOrders] = useState([]);   
     const [addresses, setAddresses] = useState([]);
     const [edit, setEdit] = useState(false);
@@ -45,6 +47,7 @@ const UserProfilePage = () => {
 
         const fetchUserOrders = async () => {
             const userOrders = await getUserOrders(userId);
+            console.log(userOrders);
             setOrders(userOrders);
         };
         if(userId) {
@@ -196,7 +199,6 @@ const UserProfilePage = () => {
                         </div>
                     ))}
                 </div>
-
             </div>
             <Footer />
         </div>

@@ -11,7 +11,8 @@ import { addToCart } from "../utils/userServices";
 
 const ProductPage = () => {
     const { id } = useParams();
-    const [userId,setUserId] = useState("");
+    const userId = JSON.parse(localStorage.getItem("userId"));
+    /*const [userId,setUserId] = useState("");
     useEffect(() => {
         const storedUserId = localStorage.getItem("userId");
         if (storedUserId) {
@@ -20,7 +21,7 @@ const ProductPage = () => {
             setUserId("");
             navigate('/login');
         }
-    }, []);
+    }, []);*/
     const navigate = useNavigate();
     const [ product,setProduct] = useState(null);
     const [variants, setVariants] = useState([]);
