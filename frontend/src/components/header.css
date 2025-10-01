@@ -102,7 +102,8 @@ header {
 .cart-drawer { 
   position: fixed; top: 0; right: 0; 
   width: 340px; 
-  height: 95vh; 
+  max-width: 90vw; 
+  height: 90vh; 
   background: #fff; 
   box-shadow: -2px 0 16px rgba(0,0,0,0.12); 
   z-index: 1001; 
