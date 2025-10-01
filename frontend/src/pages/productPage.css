@@ -22,7 +22,7 @@
 }
 .left-container{
     flex: 1;
-    padding: 20px;
+    padding: 5px;
     max-height: 100vh;   /* never exceed viewport */
     overflow-y: auto;
     scrollbar-width: none;  /* Firefox */
@@ -136,7 +136,7 @@ button{
 
   /* make room for the button so images/content don't sit under it */
   .left-container {
-    padding-right: 44px; /* original padding(20) + half button + gap; tweak if needed */
+    padding-right: 5px; /* original padding(20) + half button + gap; tweak if needed */
   }
 
   .right-container {
