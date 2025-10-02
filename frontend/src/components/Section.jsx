@@ -2,7 +2,7 @@ import './section.css'
 import Card from "./Card";
 
 const Section = ({ title, products }) => {
-  products = products.slice(0, 3); // Limit to first 3 products
+  products = products.slice(0, 6); // Limit to first 3 products
   return (
     <div className="section">
       <div className="section-head">
