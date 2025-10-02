@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import './card.css'
 import {  getSingleVariant } from '../utils/productServices';
 import { useEffect, useState } from 'react';
-const Card = ({ product, width = '320px' }) => {
+const Card = ({ product, width = '310px' }) => {
   const [variant, setVariant] = useState(null);
   
   useEffect(() => {
