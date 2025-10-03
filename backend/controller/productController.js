@@ -298,6 +298,20 @@ const updateProduct = async (req, res) => {
         res.status(500).json({ error: 'Failed to update product' });
     }
 };
+const updateVariant = async (req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body;
+    try {
+        const variant = await VariantSchema.findByIdAndUpdate(id, updatedData, { new: true });
+        if (!variant) {
+            return res.status(404).json({ error: 'Variant not found' });
+        }
+        res.status(200).json({ message: 'Variant updated', variant });
+    } catch (error) {
+        console.error('Error updating variant:', error);
+        res.status(500).json({ error: 'Failed to update variant' });
+    }
+};
 
 const searchProducts = async (req, res) => {
   try {
@@ -326,15 +340,21 @@ const searchProducts = async (req, res) => {
 
 module.exports = {
     addProduct,
+    addVariant,
+
     getAllProducts,
     getSingleProduct,
     getSingleVariant,
+
     updateProduct,
+    updateVariant,
+
     deleteProduct,
-    addVariant,
+    deleteVariant,
+    
     getAllByCategory,
     getAllByTag,
     getAllVariants,
-    deleteVariant,
+
     searchProducts
 }

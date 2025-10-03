@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./variantForm.css";
-import { addvariant } from "../utils/services";
-import imageCompression from 'browser-image-compression';
+import { addvariant, updateVariant } from "../utils/services";
+import Compressor  from 'compressorjs';
 
 const CLOUDINARY_UPLOAD_PRESET = "Moreover";
 const CLOUDINARY_CLOUD_NAME = "dknbm49rl";
 
-const VariantForm = ({productId}) => {
+const VariantForm = ({productId, variantData={},editMode=false}) => {
   const [formData, setFormData] = useState({
     productId:productId,
     sku: "",
@@ -22,6 +22,15 @@ const VariantForm = ({productId}) => {
   });
   const [selectedImages, setSelectedImages] = useState([]);
 
+  useEffect(() => {
+    if (editMode && variantData) {
+      setFormData((prev) => ({
+        ...prev,
+        ...variantData,
+      }));
+      setSelectedImages(variantData.images || []);
+    }
+  }, [editMode, variantData]);
   // Simple field change
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,13 +74,25 @@ const VariantForm = ({productId}) => {
 
  const handleImageChange = async (file, idx) => {
   try {
-    console.log('compressing file ',file)
-    const compressedFile = await imageCompression(file, {
-      maxSizeMB: 1,        // keep it under 1MB
-      maxWidthOrHeight: 1920, // resize large images
-      useWebWorker: true,
+    console.log("compressing file ", file);
+    // wrap Compressor in a Promise
+    const compressedFile = await new Promise((resolve, reject) => {
+      new Compressor(file, {
+        quality: 0.8,              // adjust 0.6 - 0.9 for balance
+        maxWidth: 1920,
+        maxHeight: 1920,
+        convertSize: 1 * 1024 * 1024, // only compress > 1MB
+        success(result) {
+          resolve(result);
+        },
+        error(err) {
+          reject(err);
+        },
+      });
     });
-    console.log('compressed!! ')
+
+    console.log("compressed!! ", compressedFile);
+
     const updated = [...selectedImages];
     updated[idx] = compressedFile;
     setSelectedImages(updated);
@@ -87,7 +108,6 @@ const VariantForm = ({productId}) => {
   const removeImageSlot = (idx) => {
     setSelectedImages((prev) => prev.filter((_, i) => i !== idx));
   };
-
 
   const uploadToCloudinary = async (file) => {
     try {
@@ -119,6 +139,7 @@ const VariantForm = ({productId}) => {
   // Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let res;
     try{
        // upload all images first
       const urls = await Promise.all(
@@ -127,7 +148,12 @@ const VariantForm = ({productId}) => {
 
     // update formData with cloud URLs
     const updatedFormData = { ...formData, images: urls.filter(Boolean) };
-      const res = await addvariant(updatedFormData)
+    if(editMode){
+      res = await updateVariant(updatedFormData,variantData._id)
+    }else{
+      res = await addvariant(updatedFormData)
+    }
+      
       console.log(res)
       if(res.ok){
         setFormData({
@@ -245,7 +271,7 @@ const VariantForm = ({productId}) => {
           {/* Preview */}
           {file && (
             <img
-              src={URL.createObjectURL(file)}
+              src={variantData.images ? variantData.images[idx] : URL.createObjectURL(file)}
               alt={`preview-${idx}`}
               style={{ width: "80px", height: "80px", objectFit: "cover" }}
             />

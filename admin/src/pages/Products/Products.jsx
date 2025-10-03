@@ -10,6 +10,8 @@ const Products = () => {
   const [variants, setVariants] = useState([]);
   const [products, setProducts] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const[editVariant,setEditVariant]= useState(false);
+  const[variantData,setVariantData]= useState({});
   const[addVariant,setAddVariant]= useState(false);
   const [productData,setProductData]=useState([{
     product:{},
@@ -123,7 +125,11 @@ const Products = () => {
                             </div>
                            
                             <div className="actions">
-                              <button>edit</button>
+                              <button onClick={() => {
+                                setVariantData(variant);
+                                setEditVariant(true);
+                                setAddVariant(true);
+                              }}>edit</button>
                               <button onClick={()=>{handleDeleteVariant(variant._id)}}>delete</button>
                             </div>
                           </div>
@@ -155,7 +161,7 @@ const Products = () => {
                 <div className="side-overlay" onClick={() => setAddVariant(false)}></div>
                 <div className="drawer">
                     <button className="close-btn" onClick={() => setAddVariant(false)}>×</button>
-                    <VariantForm productId={productId}/>
+                    <VariantForm productId={productId} variantData={variantData} editMode={editVariant} />
                     <div className="side-content">
 
                     </div>
