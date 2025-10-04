@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./variantForm.css";
 import { addvariant, updateVariant } from "../utils/services";
 import Compressor  from 'compressorjs';
@@ -6,7 +6,7 @@ import Compressor  from 'compressorjs';
 const CLOUDINARY_UPLOAD_PRESET = "Moreover";
 const CLOUDINARY_CLOUD_NAME = "dknbm49rl";
 
-const VariantForm = ({productId, variantData={},editMode=false}) => {
+const VariantForm = ({productId, variantData,editMode=false}) => {
   const [formData, setFormData] = useState({
     productId:productId,
     sku: "",
@@ -21,6 +21,7 @@ const VariantForm = ({productId, variantData={},editMode=false}) => {
     additionalAttributes: {},
   });
   const [selectedImages, setSelectedImages] = useState([]);
+  const[id,setId]= useState("");
 
   useEffect(() => {
     if (editMode && variantData) {
@@ -29,8 +30,10 @@ const VariantForm = ({productId, variantData={},editMode=false}) => {
         ...variantData,
       }));
       setSelectedImages(variantData.images || []);
+      setId(variantData._id);
+      console.log(variantData);
     }
-  }, [editMode, variantData]);
+  },[productId]);
   // Simple field change
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -145,11 +148,12 @@ const VariantForm = ({productId, variantData={},editMode=false}) => {
       const urls = await Promise.all(
           selectedImages.map((file) => (file ? uploadToCloudinary(file) : null))
       );
+      console.log(variantData);
 
     // update formData with cloud URLs
     const updatedFormData = { ...formData, images: urls.filter(Boolean) };
     if(editMode){
-      res = await updateVariant(updatedFormData,variantData._id)
+      res = await updateVariant(updatedFormData,id)
     }else{
       res = await addvariant(updatedFormData)
     }

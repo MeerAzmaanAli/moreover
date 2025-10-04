@@ -42,9 +42,9 @@ export const addvariant = async (variantData) => {
   const data = await res.json();
   return data.variant;
 }
-export const updateVariant = async (variantData,id) => {
-  const res = await fetch(`${API_BASE}products/update/variant/${id}`, {
-    method: "PUT",
+export const updateVariant = async (variantData,_id) => {
+  const res = await fetch(`${API_BASE}products/update/variant/${_id}`, {
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(variantData),
   });
