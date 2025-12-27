@@ -69,24 +69,36 @@ const BuyNowPage = () => {
     };
 
   const handleConfirmOrder = async () => {
+    const items = variants.map(variant=>({
+      productId: variant?.productId,
+      variantId: variant?._id,
+      size: checkoutItems.find(item => item.id === variant?._id)?.size,
+      quantity: checkoutItems.find(item => item.id === variant?._id)?.qty,
+      price: variant?.discountPrice
+    }));
+    const totalAmount = variants.reduce(
+      (acc, variant) => acc + variant?.discountPrice * checkoutItems.find(item => item.id === variant?._id)?.qty || 1,
+      0
+    ) + Shipping;
+    const payment = { method: "COD", status: "Pending" };
     if(!editBilling){
       setForm(()=>({
         userId: userId,
         fullName: user && user?.fullName,
         email: user && user?.email,
         phone: user && user?.phone,
-        items: variants,
-        totalAmount: 0,
+        items: items,
+        totalAmount: totalAmount,
         ShippingAddress:  user && user?.addresses?.[0],
-        payment: { method: "COD", status: "Pending" }
+        payment:  payment
       }));
     }else{
-      setForm(form);
+      setForm({...form,items: items, totalAmount: totalAmount, payment: payment});
     }
     try {
       const res = await addOrder(form);
       console.log("Order Response:", res);
-      navigate('/');
+      //navigate('/');
     } catch (error) {
       console.error("Error confirming order:", error);
     }
@@ -172,7 +184,7 @@ const BuyNowPage = () => {
                     <input type="text" placeholder="Email" name="email"  onChange={handleChange} /><br />
                     <input type="text" placeholder="Phone Number" name="phone"onChange={handleChange} /><br />
                     <label>Address</label><br />
-                    <input type="text" placeholder="Street" name="stree" onChange={handleChange} /><br />
+                    <input type="text" placeholder="Street" name="street" onChange={handleChange} /><br />
                     <input type="text" placeholder="City" name="city" onChange={handleChange} /><br />
                     <input type="text" placeholder="State" name="state" onChange={handleChange} /><br />
                     <input type="text" placeholder="Country" name="country" onChange={handleChange} /><br />

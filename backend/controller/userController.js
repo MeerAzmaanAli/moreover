@@ -101,7 +101,7 @@ const addToCart = async (req, res) => {
   }
 };
 const addOrder = async (req, res) => {
-  const { userId,fullName,email,phone, items, totalAmount, status, shippingAddress, payment } = req.body;
+  const { userId,fullName,email,phone, items, totalAmount, shippingAddress, payment } = req.body;
   try {
     const user = await UserSchema.findById(userId);
     if (!user) {
@@ -124,8 +124,8 @@ const addOrder = async (req, res) => {
     await user.save();
 
     res.status(201).json(newOrder);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to add order" });
+  } catch (e) {
+    res.status(500).json({ error: "Failed to add order",e });
   }
 };
 const updateProfile = async (req, res) => {
