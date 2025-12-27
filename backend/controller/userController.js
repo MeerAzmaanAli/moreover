@@ -114,7 +114,6 @@ const addOrder = async (req, res) => {
       phone,
       items,
       totalAmount,
-      status,
       shippingAddress,
       payment
     });   
