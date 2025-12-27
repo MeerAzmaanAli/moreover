@@ -65,6 +65,15 @@
         width: 100%;
     }
 }
+.billing-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    img{
+        width: 30px;
+        height: 30px;
+    }
+}
 .confirm-order {
     margin-top: 16px;
     padding: 12px 16px;

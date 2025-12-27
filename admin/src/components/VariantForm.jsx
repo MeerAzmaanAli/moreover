@@ -21,7 +21,7 @@ const VariantForm = ({productId, variantData,editMode=false}) => {
     additionalAttributes: {},
   });
   const [selectedImages, setSelectedImages] = useState([]);
-  const[_id,setId]= useState("");
+  const[id,setId]= useState("");
 
   useEffect(() => {
     if (editMode && variantData) {
@@ -153,8 +153,7 @@ const VariantForm = ({productId, variantData,editMode=false}) => {
     // update formData with cloud URLs
     const updatedFormData = { ...formData, images: urls.filter(Boolean) };
     if(editMode){
-      console.log("Updating variant:", _id.toString(), updatedFormData);
-      res = await updateVariant(variantData=updatedFormData,_id.toString())
+      res = await updateVariant(updatedFormData,id)
     }else{
       res = await addvariant(updatedFormData)
     }

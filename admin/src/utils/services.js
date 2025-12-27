@@ -1,4 +1,4 @@
-const API_BASE="https://localhost:5000/api/";
+const API_BASE="https://moreover-backend.onrender.com/api/";
 
 export const getAllVariants = async (productId="-1") => {
   const res = await fetch(`${API_BASE}products/variants/${productId}`);

@@ -101,7 +101,7 @@ const addToCart = async (req, res) => {
   }
 };
 const addOrder = async (req, res) => {
-  const { userId, items, totalAmount, status, shippingAddress, payment } = req.body;
+  const { userId,fullName,email,phone, items, totalAmount, status, shippingAddress, payment } = req.body;
   try {
     const user = await UserSchema.findById(userId);
     if (!user) {
@@ -109,6 +109,9 @@ const addOrder = async (req, res) => {
     }
     const newOrder = new OrderSchema({
       userId: userId,
+      fullName,
+      email,
+      phone,
       items,
       totalAmount,
       status,

@@ -96,6 +96,7 @@ const addToCart = async (userId, productId, variantId, size, quantity) => {
   }
 };
 const addOrder = async (orderData) => {
+  {}
   try {
     const response = await fetch(`${API_BASE}/orders/add`, {
       method: "POST",

@@ -4,12 +4,30 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import { getSingleVariant } from "../utils/productServices";
+import { addOrder, getUserProfile } from "../utils/userServices";
+import editIcon from "../media/profileEdit.png";
 
 const BuyNowPage = () => {
     const { ids } = useParams();
+    const userId = JSON.parse(localStorage.getItem("userId"));
+
     const location = useLocation();
     const navigate = useNavigate();
+
     const [variants, setVariants] = useState([]);
+    const [user, setUser] = useState(null);
+    const [editBilling, setEditBilling] = useState(false);
+    const [form, setForm] = useState({  
+      userId: userId,
+      fullName: user && user?.fullName,
+      email: user && user?.email,
+      phone: user && user?.phone,
+      items: variants,
+      totalAmount: 0,
+      ShippingAddress:  user && user?.addresses?.[0],
+      payment: { method: "COD", status: "Pending" }
+
+    });
 
     const checkoutItems  = location.state || {};
     const Shipping = 0;
@@ -28,15 +46,53 @@ const BuyNowPage = () => {
         console.error("Error fetching variants:", error);
       }
     };
-
+    const fetchUserData = async () => {
+        const userData = await getUserProfile(userId);
+        setUser(userData);
+    };
     if (ids) fetchVariants();
-  }, [ids]);
+    if(userId) {
+      fetchUserData();
+    }
+    else{
+        navigate('/login');
+    }}, [ids, userId, navigate]);
+   
 
   const handleCardClick = (variantId) => {
     // Handle card click event
     console.log("Card clicked:", variantId);
     navigate(`/product/${variantId}`);
   };
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value});
+    };
+
+  const handleConfirmOrder = async () => {
+    if(!editBilling){
+      setForm(()=>({
+        userId: userId,
+        fullName: user && user?.fullName,
+        email: user && user?.email,
+        phone: user && user?.phone,
+        items: variants,
+        totalAmount: 0,
+        ShippingAddress:  user && user?.addresses?.[0],
+        payment: { method: "COD", status: "Pending" }
+      }));
+    }else{
+      setForm(form);
+    }
+    try {
+      const res = await addOrder(form);
+      console.log("Order Response:", res);
+      navigate('/');
+    } catch (error) {
+      console.error("Error confirming order:", error);
+    }
+
+    console.log("Order confirmed:", form);
+  }
 
   return (
     <div>
@@ -92,10 +148,40 @@ const BuyNowPage = () => {
                 ) + Shipping}{" "}
                 rs</strong>
             </p>
-            <button className="confirm-order">Confirm Order</button>
+            
           </div>
-          
         </div>
+        <div className="Billing Details">
+          <div className="billing-header">
+            <h3>Billing Details</h3>
+            <img src={editIcon} alt="Edit Profile" onClick={() => setEditBilling(!editBilling)} />
+          </div>
+          {!editBilling && user && (
+            <div key={user?._id} className="billing_details">
+                <p className="info"><strong> Name:</strong> {user?.fullName}</p>
+                <p className="info"><strong> Email:</strong> {user?.email}</p>
+                <p className="info"><strong> Address:</strong> {`${user?.addresses?.[0].street}, ${user?.addresses?.[0].city}, ${user?.addresses?.[0].state}, ${user?.addresses?.[0].country}, ${user?.addresses?.[0].pin}`}</p>
+                <p className="info"> <strong> Phone:</strong> {user?.phone}</p>
+            </div>
+          )}
+          {editBilling && (
+            <div className="edit_billing_form">
+                <h3>Edit Billing Details</h3>
+                <form>
+                    <input type="text" placeholder="Full Name" name="fullName"  onChange={handleChange} /><br />
+                    <input type="text" placeholder="Email" name="email"  onChange={handleChange} /><br />
+                    <input type="text" placeholder="Phone Number" name="phone"onChange={handleChange} /><br />
+                    <label>Address</label><br />
+                    <input type="text" placeholder="Street" name="stree" onChange={handleChange} /><br />
+                    <input type="text" placeholder="City" name="city" onChange={handleChange} /><br />
+                    <input type="text" placeholder="State" name="state" onChange={handleChange} /><br />
+                    <input type="text" placeholder="Country" name="country" onChange={handleChange} /><br />
+                    <input type="text" placeholder="Zip Code" name="zipCode" onChange={handleChange} /><br />
+                </form>
+            </div>
+          )}  
+        </div>
+        <button className="confirm-order" onClick={handleConfirmOrder}>Confirm Order</button>
       </div>
       <Footer />
     </div>
