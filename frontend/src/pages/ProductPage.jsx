@@ -28,8 +28,10 @@ const ProductPage = () => {
     const [selectedSize, setSelectedSize] = useState(null);
     const [currentVariant, setCurrentVariant] = useState(null);
     const [refresh, setRefresh] = useState(0);
-    const [Switch, setSwitch] = useState(true);
+    const [Switch, setSwitch] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [imageOpen, setImageOpen] = useState(false);
+    const [currentImage, setCurrentImage] = useState("");
     const colors = [];
     
 
@@ -43,6 +45,11 @@ const ProductPage = () => {
         { username: 'r2', title: "Not what I expected", content: "The color is different from the picture.", rating: 3 },
         { username: 'r3', title: "Would buy again", content: "Fits well and looks great.", rating: 4 }
     ];
+    const setImageModal = (img) => {
+        if (!isMobile) return;
+        setCurrentImage(img);
+        setImageOpen(true);
+    };
     const selectSize = (size) => {
         setSelectedSize(size);
     };
@@ -120,72 +127,80 @@ const ProductPage = () => {
         
         <div className="product-page">
             <Header refresh={refresh}/>
-            <div className="product-content">
-                <div className="left-container" style={{ flex: isMobile ? (Switch ? "8" : "2") : "2" }}>
-                    {currentVariant && currentVariant.images.map((img, index) => (
-                        <img key={index} src={img} alt={`${product.name} - ${currentVariant.color}`} />
-                    ))}
-                    
-                </div>
+            <> 
+                <div className="product-content">
+                    <div className="left-container" style={{ flex: isMobile ? (Switch ? "8" : "2") : "2" }}>
+                        {currentVariant && currentVariant.images.map((img, index) => (
+                            <img key={index} src={img} alt={`${product.name} - ${currentVariant.color}`} onClick={() => setImageModal(img)} />
+                        ))}
+                        
+                    </div>
 
-                <button className="split-toggle" onClick={() => setSwitch(!Switch)}><strong>{Switch ? "<" : ">"}</strong></button>
+                    <button className="split-toggle" onClick={() => setSwitch(!Switch)}><strong>{Switch ? "<" : ">"}</strong></button>
 
-                <div className="right-container" style={{ flex: isMobile ? (Switch ? "2" : "8") : "1" }}>
-                    <div className="pageAddress">Home/{product && product.categories[0]}/<strong>{product && product.name}-{currentVariant && currentVariant.color}</strong></div>
+                    <div className="right-container" style={{ flex: isMobile ? (Switch ? "2" : "8") : "1" }}>
+                        <div className="pageAddress">Home/{product && product.categories[0]}/<strong>{product && product.name}-{currentVariant && currentVariant.color}</strong></div>
 
-                    <h2>{product && product.name}</h2>
-                    <h3>{currentVariant && currentVariant.discountPrice}rs</h3>
-                    <p><s>{currentVariant && currentVariant.price}rs</s></p>
-                    <p className="description">{product && product.description}</p>
-                    <div className="size-selector">
-                        <h3>Size</h3>
-                        <div className="size-options">
-                            {currentVariant && currentVariant.size.map(size => (
-                                <div key={size} className="size" onClick={() => selectSize(size)}>
-                                    {size}  
+                        <h2>{product && product.name}</h2>
+                        <h3>{currentVariant && currentVariant.discountPrice}rs</h3>
+                        <p><s>{currentVariant && currentVariant.price}rs</s></p>
+                        <p className="description">{product && product.description}</p>
+                        <div className="size-selector">
+                            <h3>Size</h3>
+                            <div className="size-options">
+                                {currentVariant && currentVariant.size.map(size => (
+                                    <div key={size} className="size" onClick={() => selectSize(size)}>
+                                        {size}  
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="color-selector">
+                            <h3>Colors</h3>
+                            <div className="color-options">
+                                {colors && colors.map((color, index) => (
+                                    <div key={index} className="color" style={{ backgroundColor: color }} onClick={() => selectColor(color)}></div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="button-container">
+                            <button className="add-to-cart" onClick={addtoCart}>Add to Cart</button>
+                            <button className="buy-now" onClick={navToBuyNow}>Buy Now</button>
+                        </div>
+                        <div className="additional-info">
+                            <div className="left">
+                                <div className="specs">
+                                {currentVariant?.additionalAttributes && (
+                                        <div>
+                                            {Object.entries(currentVariant.additionalAttributes).map(([key, value]) => (
+                                            <p key={key}><strong>{key}:</strong> {value}</p>
+                                            ))}
+                                        </div>)}
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="color-selector">
-                        <h3>Colors</h3>
-                        <div className="color-options">
-                            {colors && colors.map((color, index) => (
-                                <div key={index} className="color" style={{ backgroundColor: color }} onClick={() => selectColor(color)}></div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="button-container">
-                        <button className="add-to-cart" onClick={addtoCart}>Add to Cart</button>
-                        <button className="buy-now" onClick={navToBuyNow}>Buy Now</button>
-                    </div>
-                    <div className="additional-info">
-                        <div className="left">
-                            <div className="specs">
-                               {currentVariant?.additionalAttributes && (
-                                    <div>
-                                        {Object.entries(currentVariant.additionalAttributes).map(([key, value]) => (
-                                        <p key={key}><strong>{key}:</strong> {value}</p>
-                                        ))}
-                                    </div>)}
+                            </div>
+                            <div className="right">
+                                <div className="reviews">
+                                    <h3>Customer Reviews</h3>
+                                    {Reviews.length > 0 ? (
+                                        Reviews.map(review => (
+                                            <ReviewCard key={review.username} review={review} />
+                                        ))
+                                    ) : (
+                                        <p>No reviews yet</p>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                        <div className="right">
-                            <div className="reviews">
-                                <h3>Customer Reviews</h3>
-                                {Reviews.length > 0 ? (
-                                    Reviews.map(review => (
-                                        <ReviewCard key={review.username} review={review} />
-                                    ))
-                                ) : (
-                                    <p>No reviews yet</p>
-                                )}
-                            </div>
-                        </div>
+
+                    </div>
+                </div>
+                {isMobile && imageOpen && (
+                    <div className="image-modal" onClick={() => setImageOpen(false)}>
+                        <div><img src={currentImage} alt="" /></div>
                     </div>
 
-                </div>
-            </div>
+                )}
+            </>
             <Footer />
         </div>
     );

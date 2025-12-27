@@ -1,4 +1,4 @@
-const API_BASE="https://moreover-backend.onrender.com/api/";
+const API_BASE="https://localhost:5000/api/";
 
 export const getAllVariants = async (productId="-1") => {
   const res = await fetch(`${API_BASE}products/variants/${productId}`);
@@ -42,8 +42,9 @@ export const addvariant = async (variantData) => {
   const data = await res.json();
   return data.variant;
 }
-export const updateVariant = async (variantData,_id) => {
-  const res = await fetch(`${API_BASE}products/update/variant/${_id}`, {
+
+export const updateVariant = async (variantData, id) => {
+  const res = await fetch(`${API_BASE}products/update/variant/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(variantData),
