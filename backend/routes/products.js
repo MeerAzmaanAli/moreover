@@ -10,7 +10,8 @@ const { addProduct,
         getAllByCategory,
         getAllByTag,
         getAllVariants,
-        searchProducts
+        searchProducts,
+        updateVariant
       } = require('../controller/productController');
 
 const productsRoutes = express.Router();
@@ -31,7 +32,7 @@ productsRoutes.delete('/delete/product/:id', deleteProduct);
 productsRoutes.delete('/delete/variant/:id', deleteVariant);
 
 productsRoutes.patch('/update/product/:id', updateProduct);
-productsRoutes.patch('/update/variant/:id', updateProduct);
+productsRoutes.patch('/update/variant/:id', updateVariant);
 
 productsRoutes.get("/search", searchProducts);
 

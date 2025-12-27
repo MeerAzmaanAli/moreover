@@ -301,8 +301,9 @@ const updateProduct = async (req, res) => {
 const updateVariant = async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;
+    console.log("Updating variant:", id, updatedData);
     try {
-        const variant = await VariantSchema.findByIdAndUpdate(id, updatedData, { new: true });
+        const variant = await VariantSchema.findByIdAndUpdate(id,  { $set: updatedData },{ new: true, runValidators: true });
         if (!variant) {
             return res.status(404).json({ error: 'Variant not found' });
         }
