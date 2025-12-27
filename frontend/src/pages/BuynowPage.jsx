@@ -1,5 +1,7 @@
 import "./buynowPage.css"
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
@@ -17,6 +19,13 @@ const BuyNowPage = () => {
     const [variants, setVariants] = useState([]);
     const [user, setUser] = useState(null);
     const [editBilling, setEditBilling] = useState(false);
+    const [newAddress, setNewAddress] = useState({
+      street: "",
+      city: "",
+      state: "",
+      country: "",
+      zipCode: ""
+    });
     const [form, setForm] = useState({  
       userId: userId,
       fullName: user && user?.fullName,
@@ -24,7 +33,7 @@ const BuyNowPage = () => {
       phone: user && user?.phone,
       items: variants,
       totalAmount: 0,
-      ShippingAddress:  user && user?.addresses?.[0],
+      shippingAddress:  user && user?.addresses?.[0],
       payment: { method: "COD", status: "Pending" }
 
     });
@@ -64,46 +73,69 @@ const BuyNowPage = () => {
     console.log("Card clicked:", variantId);
     navigate(`/product/${variantId}`);
   };
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value});
-    };
+    const handleChange = (e) => {
+      setForm({ ...form, [e.target.name]: e.target.value});
+      };
+    const handleNewAddress = (e) => {
+      setNewAddress({ ...newAddress, [e.target.name]: e.target.value});
+      console.log(newAddress);
+      };
+  
 
   const handleConfirmOrder = async () => {
-    const items = variants.map(variant=>({
-      productId: variant?.productId,
-      variantId: variant?._id,
-      size: checkoutItems.find(item => item.id === variant?._id)?.size,
-      quantity: checkoutItems.find(item => item.id === variant?._id)?.qty,
-      price: variant?.discountPrice
-    }));
-    const totalAmount = variants.reduce(
-      (acc, variant) => acc + variant?.discountPrice * checkoutItems.find(item => item.id === variant?._id)?.qty || 1,
+    const items = variants.map(variant => ({
+    productId: variant.productId,
+    variantId: variant._id,
+    size: checkoutItems.find(item => item.id === variant._id)?.size,
+    quantity: checkoutItems.find(item => item.id === variant._id)?.qty || 1,
+    price: variant.discountPrice
+  }));
+
+  const totalAmount =
+    variants.reduce(
+      (acc, variant) =>
+        acc + variant.discountPrice *
+        (checkoutItems.find(item => item.id === variant._id)?.qty || 1),
       0
     ) + Shipping;
-    const payment = { method: "COD", status: "Pending" };
-    if(!editBilling){
-      setForm(()=>({
-        userId: userId,
-        fullName: user && user?.fullName,
-        email: user && user?.email,
-        phone: user && user?.phone,
-        items: items,
-        totalAmount: totalAmount,
-        ShippingAddress:  user && user?.addresses?.[0],
-        payment:  payment
-      }));
-    }else{
-      setForm({...form,items: items, totalAmount: totalAmount, payment: payment});
-    }
-    try {
-      const res = await addOrder(form);
-      console.log("Order Response:", res);
-      //navigate('/');
-    } catch (error) {
-      console.error("Error confirming order:", error);
-    }
 
-    console.log("Order confirmed:", form);
+  const payment = { method: "COD", status: "Pending" };
+
+  // 🔥 BUILD PAYLOAD DIRECTLY
+  const payload = {
+    userId,
+    fullName: editBilling ? form.fullName : user.fullName,
+    email: editBilling ? form.email : user.email,
+    phone: editBilling ? form.phone : user.phone,
+    items,
+    totalAmount,
+    payment,
+    shippingAddress: editBilling
+      ? {
+          street: newAddress.street,
+          city: newAddress.city,
+          state: newAddress.state,
+          country: newAddress.country,
+          zipCode: newAddress.zipCode
+        }
+      : {
+          street: user.addresses[0].street,
+          city: user.addresses[0].city,
+          state: user.addresses[0].state,
+          country: user.addresses[0].country,
+          zipCode: user.addresses[0].zipCode
+        }
+  };
+
+  try {
+    const res = await addOrder(payload);
+    console.log("Order Response:", res);
+    alert("Order placed successfully!");
+    navigate("/");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to place order");
+  }
   }
 
   return (
@@ -184,11 +216,11 @@ const BuyNowPage = () => {
                     <input type="text" placeholder="Email" name="email"  onChange={handleChange} /><br />
                     <input type="text" placeholder="Phone Number" name="phone"onChange={handleChange} /><br />
                     <label>Address</label><br />
-                    <input type="text" placeholder="Street" name="street" onChange={handleChange} /><br />
-                    <input type="text" placeholder="City" name="city" onChange={handleChange} /><br />
-                    <input type="text" placeholder="State" name="state" onChange={handleChange} /><br />
-                    <input type="text" placeholder="Country" name="country" onChange={handleChange} /><br />
-                    <input type="text" placeholder="Zip Code" name="zipCode" onChange={handleChange} /><br />
+                    <input type="text" placeholder="Street" name="street" onChange={handleNewAddress} /><br />
+                    <input type="text" placeholder="City" name="city" onChange={handleNewAddress} /><br />
+                    <input type="text" placeholder="State" name="state" onChange={handleNewAddress} /><br />
+                    <input type="text" placeholder="Country" name="country" onChange={handleNewAddress} /><br />
+                    <input type="text" placeholder="Zip Code" name="zipCode" onChange={handleNewAddress} /><br />
                 </form>
             </div>
           )}  
